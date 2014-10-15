@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<title>Alina Proskuryakova Portfolio</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/icon_style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/jg.min.css')}}">
+	<script type="text/javascript" src="{{url_for('static', filename='js/modernizr.js')}}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='js/lightbox.min.js')}}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.lightbox').imageLightbox({
+				quitOnImgClick:true,
+			});
+		});
+	</script>
+</head>
+<body>
+	<header>
+		<img src="{{ header_pic }}" alt="header" id='header-img'>
+
+		<div class="titles fancy-font">
+			<h1>Hello. <span>I am Alina</span></h1>
+			<h2>I love to draw picktures</h2>
+		</div>
+		<div class="social">
+			<a class="vkontakte icon-VK" href="https://vk.com/id11967317" target="_blank"></a>
+			<a class="twitter icon-twitter" href="https://twitter.com/BanjLi"target="_blank"></a>
+			<a class="flickr icon-flickr" href="https://www.flickr.com/photos/127892511@N08/" target="_blank"></a>
+			<a class="mail icon-Email" href="mailto:alinlink@yandex.ru" target="_blank"></a>
+		</div>
+	</header>
+	<section class="instagram-wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="instagram-content">
+						<h3>My works</h3>
+						<h4>Art</h4>
+						<div class='gallery'>
+							{%for fig in figures_art%}
+							<a class='lightbox'  href="{{fig['urls']['Original']}}" data-title="{{fig['name']}}">
+								<img alt="{{fig['name']}}" src="{{fig['urls']['Thumbnail']}}">
+							</a>
+							{%endfor%}
+						</div>
+
+						<h4>Sketches</h4>
+						<div class="gallery">
+							{%for fig in figures_sketch%}
+							<a class='lightbox' href="{{fig['urls']['Large']}}">
+								<img alt="{{fig['name']}}" src="{{fig['urls']['Thumbnail']}}">
+							</a>
+							{%endfor%}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h4>Let's work together!</h4>
+					<p class="about-text">I am good girl:)</p>
+					<a class="contact-now-btn icon-VK" href="https://vk.com/id11967317" target="_blank"></a>
+					<a class="contact-now-btn icon-twitter" href="https://twitter.com/BanjLi" target="_blank"></a>
+					<a class="contact-now-btn icon-flickr" href="https://www.flickr.com/photos/127892511@N08/" target="_blank"></a>
+					<a class="contact-now-btn icon-Email" href="mailto:alinlink@yandex.ru" target="_blank"></a>
+					
+
+				</div>
+			</div>
+		</div>
+
+
+	</footer>
+	<section class="footer-bottom">
+
+		2014 &copy; Alina Proskuryakova. All right reserverd.
+		
+		
+		<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/jg.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/html5shiv-printshiv.min.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/html5shiv.min.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+	</section>
+</body>
+</html>
