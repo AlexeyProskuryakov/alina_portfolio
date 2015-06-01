@@ -8,14 +8,18 @@ __author__ = '4ikist'
 flickr_api_key = '35d3ee874f13ee7de87df528254d0c75'
 flickr_api_key_secret = '7dfae325a92a0c45'
 flickr_base_url = 'https://api.flickr.com/services/rest/'
-flickr_user_id = '127892511@N08'
+#flickr_user_id = '127892511@N08'
+flickr_user_id = '132992431@N08'
 
-photo_ids_ttl = 60
-photo_data_ttl = 60*5
+photo_ids_ttl = 600
+photo_data_ttl = 12560 * 5
 
+portfolio_tags = ['portfolio', ]
+min_photos_count = 5
 
-portfolio_tags = set(['portfolio'])
-
+mongo_host='localhost'
+mongo_port=27017
+mongo_db_name='ap'
 
 def module_path():
     if hasattr(sys, "frozen"):

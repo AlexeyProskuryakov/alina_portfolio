@@ -1,4 +1,7 @@
 $(".gallery").justifiedGallery({
-	margin:10,
 	cssAnimation:true,
+    rowHeight : 70,
+    lastRow : 'nojustify',
+    margins : 3
 });
+

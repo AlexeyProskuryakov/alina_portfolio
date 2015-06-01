@@ -40,7 +40,7 @@ header {
 		position: fixed;
 		top: 0px;
 		left: 50%;
-		margin-left: -600px;
+		margin-left: -10px;
 		width: 1200px;
 
 		@media screen and (min-width: $screen-lg) {
@@ -109,7 +109,7 @@ h2 {
 	right: 50px;
 	overflow: hidden;
 
-	
+
 	a {
 		color: $black;
 		font-size: 1.6em;
@@ -187,7 +187,7 @@ footer {
 		display: inline-block;
 		color: $grey;
 		font-size: 1.6em;
-		
+
 		@media screen and (min-width: $screen-md) {
 			width: 60%;
 		}
@@ -225,4 +225,11 @@ footer {
 	-ms-touch-action: none;
 	touch-action: none;
 	box-shadow: 0 0 10.125em;
+}
+
+.lightbox{
+  margin-left: 0px !important;
+  margin-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important ;
 }
