@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import requests
 from threading import Thread
+import pymongo
 from pymongo.mongo_client import MongoClient
 from alina_portfolio.properties import flickr_base_url, flickr_api_key, flickr_user_id, logger, portfolio_tags, \
     photo_data_ttl, photo_ids_ttl, min_photos_count, mongo_host, mongo_port, mongo_db_name
@@ -18,21 +19,10 @@ class Cache(object):
     def __init__(self, ttl=3600):
         self.data = {}
         self.ttl = ttl
-        try:
-            self.storage = MongoClient(host=mongo_host, port=mongo_port)[mongo_db_name]['temp']
-        except:
-            class FakeStorage():
-                def save(self, data):
-                    pass
-
-                def find_one(self, spec):
-                    return None
-            self.storage = FakeStorage()
 
     def add(self, k, v, ttl=None):
-        saved = {'key':k,'content': v, 'time': datetime.now(), 'ttl': self.ttl if ttl is None else ttl}
+        saved = {'key': k, 'content': v, 'time': datetime.now(), 'ttl': self.ttl if ttl is None else ttl}
         self.data[k] = saved
-        self.storage.save(saved)
 
     def get(self, k):
         if k in self.data:
@@ -42,13 +32,11 @@ class Cache(object):
             else:
                 return self.data[k]['content']
         else:
-            found = self.storage.find_one({'key':k})
-            if found:
-                self.data[k] = found
-                return self.data[k]['content']
             return None
 
+
 cache = Cache(ttl=photo_data_ttl)
+
 
 class FlickrDataHandler(object):
     def __init__(self, ttl=3600):
@@ -60,7 +48,7 @@ class FlickrDataHandler(object):
             self.__fill_cache = True
             ids = self._get_photos_ids(init)
             for i, el in enumerate(ids):
-                self._get_or_load_photo_data(force=init if i<=min_photos_count else False,**el)
+                self._get_or_load_photo_data(force=init if i <= min_photos_count else False, **el)
 
             self.__fill_cache = False
 
@@ -77,7 +65,7 @@ class FlickrDataHandler(object):
     def _get_photos_ids(self, init=False):
         photos_ids = cache.get('photos_ids')
         if not photos_ids:
-            def target():
+            def target(cache):
                 photos_ids = []
                 user_photos_result = requests.get(flickr_base_url,
                                                   params=self._fill_params(
@@ -93,12 +81,12 @@ class FlickrDataHandler(object):
                 log.info('indexes loaded! For %s photos' % len(photos_ids))
                 return photos_ids
 
-            th = Thread(target=target)
+            th = Thread(target=target, args=(cache,))
             th.start()
             if init:
                 th.join()
 
-                log.info('photo_ids will loaded, now: %s'%cache.get('photo_ids'))
+                log.info('photo_ids will loaded, now: %s' % cache.get('photos_ids'))
 
             return cache.get('photo_ids') or []
 
@@ -136,10 +124,12 @@ class FlickrDataHandler(object):
 
     def _get_or_load_photo_data(self, photo_id, secret, force=False):
         photo_cache = cache.get(photo_id)
+
         if not photo_cache:
             log.info('photo not in cache will load')
+
             def target():
-                log.info('photo %s retrieve started '% photo_id)
+                log.info('photo %s retrieve started ' % photo_id)
                 urls = self.__get_photo_urls(photo_id)
                 tags, date_posted, name, descr = self.__get_photo_info(photo_id, secret)
                 photo_cache = {'urls': urls, 'tags': tags, 'date': date_posted, 'name': name, 'description': descr}
@@ -150,7 +140,7 @@ class FlickrDataHandler(object):
             th.start()
             if force:
                 try:
-                    th.join(1000)
+                    th.join()
 
                 except:
                     return self._get_or_load_photo_data(photo_id, secret, force)

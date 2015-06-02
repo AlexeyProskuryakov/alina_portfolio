@@ -5298,15 +5298,17 @@ body {
 header {
   max-height: 600px;
   height: 600px;
-  overflow: hidden; }
+  overflow: hidden;
+  background-image: url("//c1.staticflickr.com/9/8892/18128999749_129c7d500f_k.jpg") -webkit-gradient(linear, left top, left bottom, from(#6cab26), to(#6ceb86));
+  /* Saf4+, Chrome */ }
   header .fancy-font {
     font-family: "Kaushan Script", cursive; }
   header #header-img {
     position: fixed;
     top: 0px;
     left: 50%;
-    margin-left: -600px;
-    width: 1200px; }
+    margin-left: -10px;
+    width: 100%; }
     @media screen and (min-width: 1200px) {
       header #header-img {
         top: auto;
@@ -5325,20 +5327,19 @@ header {
   position: absolute;
   bottom: 40%;
   width: 100%;
-  text-align: center;
-  color: #BBB !important; }
+  text-align: center; }
   @media screen and (min-width: 1200px) {
     .titles {
       bottom: 50%; } }
 
 h1, h2 {
   width: 100%;
-  color: #FFF;
-  margin: 0; }
+  margin: 0;
+  color: #000 !important; }
 
 h1 {
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 10;
   font-size: 36px;
   letter-spacing: 0.06em;
   margin-bottom: 10px; }

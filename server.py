@@ -10,25 +10,18 @@ app = Flask('aptf')
 dh = FlickrDataHandler(ttl=3600 * 24 * 365)
 count_in_block = 3
 
-sleep(1)
-
 
 @app.route('/')
 def index():
     po = dh.get_photo_objects(tags=['header'])
-    if not po:
-        sleep(5)
-        po = dh.get_photo_objects(tags=['header'])
-
-    header = random.choice(po)
+    header = random.choice(po) if po else None
     header_url = header['urls']['Large'] if header else '//c2.staticflickr.com/6/5601/15528778702_c93a776733_h.jpg'
 
     figures_art = dh.get_photo_objects(tags=['art'])
     figures_sketch = dh.get_photo_objects(tags=['sketch'])
 
     return render_template('index.html', header_pic=header_url, figures_art=figures_art,
-                           figures_sketch=figures_sketch,
-                           main=header)
+                           figures_sketch=figures_sketch, )
 
 
 @app.route('/tags')
@@ -37,5 +30,10 @@ def get_object_by_tag():
     return jsonify({})
 
 
+def _unload_photos():
+    for id in dh._get_photos_ids(True):
+        dh._get_or_load_photo_data(force=True, **id)
+
 if __name__ == '__main__':
+    _unload_photos()
     app.run()

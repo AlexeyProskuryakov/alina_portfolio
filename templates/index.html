@@ -2,7 +2,7 @@
 <html>
 <head lang="ru">
     <meta name="viewport" content="width=device-width,user-scalable=no">
-    <title>Alina Proskuryakova Portfolio</title>
+    <title>Alina Link Portfolio</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet'
           type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
@@ -18,20 +18,14 @@
     <script src="{{url_for('static', filename='css/style.css')}}"></script>
 </head>
 
-<body class='intence'
-      scrollImg="{{url_for('static', filename='pic/texture.png')}}"
-      scrollImgNorth="{{url_for('static', filename='pic/north.png')}}"
-      scrollImgSouth="{{url_for('static', filename='pic/south.png')}}"
-      scrollImgEast="{{url_for('static', filename='pic/east.png')}}"
-      scrollImgWest="{{url_for('static', filename='pic/west.png')}}"
-        >
+<body>
 <header>
     <img src="{{ header_pic }}" alt="header" id='header-img'>
 
     <div class="titles fancy-font">
         <h1>Hello. <span>I am Alina</span></h1>
 
-        <h2>I love to draw picktures</h2>
+        <h2>I am an artist, and I love to draw.</h2>
     </div>
     <div class="social">
         <a class="vkontakte icon-VK" href="https://vk.com/id11967317" target="_blank"></a>
@@ -49,7 +43,7 @@
 
                     <h3>Art</h3>
 
-                    <div class='gallery'>
+                    <div class='gallery center-block'>
                         {%for fig in figures_art%}
                         <a class="lightbox" href="{{fig['urls']['Large']}}" data-title="{{fig['name']}}">
                             <img alt="{{fig['name']}}" src="{{fig['urls']['Large Square']}}">
@@ -62,7 +56,7 @@
                     <div class="gallery">
                         {%for fig in figures_sketch%}
                         <a class='lightbox' href="{{fig['urls']['Large']}}">
-                            <img class='lightbox' alt="{{fig['name']}}" src="{{fig['urls']['Large Square']}}">
+                            <img alt="{{fig['name']}}" src="{{fig['urls']['Large Square']}}">
                         </a>
                         {%endfor%}
                     </div>
@@ -71,45 +65,6 @@
         </div>
     </div>
 </section>
-<!--<section>-->
-<!--<div class="gallery-4k">-->
-<!--<div class="container-fluid">-->
-<!--<div class="row" id="header-container">-->
-<!--<div class="col-xs-5 col-md-3"></div>-->
-<!--{%for block in figures_art%}-->
-
-<!--<div class="col-md-1">-->
-
-<!--<img src="{{block['urls']['Thumbnail']}}" class>-->
-<!--<img src="{{block['urls']['Large']}}" class="hide large">-->
-
-<!--</div>-->
-<!--{% endfor %}-->
-
-<!--</div>-->
-
-<!--<div class="row">-->
-
-<!--<div class="col-xs-4 col-md-3" id="left-container">-->
-<!--{%for block in figures_sketch%}-->
-<!--<div class="row">-->
-<!--<div class="col-xs-3 col-md-3">-->
-<!--<img src="{{block['urls']['Small']}}">-->
-<!--<img src="{{block['urls']['Large']}}" class="hide">-->
-<!--</div>-->
-
-<!--</div>-->
-<!--{% endfor %}-->
-<!--</div>-->
-<!--<div class="col-xs-12 col-md-8" id="main-window">-->
-<!--<img alt="{{main['name']}}" src="{{main['urls']['Large']}}">-->
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-<!--</section>-->
 <footer>
     <div class="container">
         <div class="row">
@@ -133,7 +88,7 @@
 
 <section class="footer-bottom">
 
-    2015 &copy; Alina Proskuryakova. All right reserverd.
+    2015 &copy; Alina Link. All right reserverd.
     <script type="text/javascript" src="{{url_for('static', filename='js/modernizr.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/jquery-1.11.3.min.js')}}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -148,12 +103,9 @@
 				quitOnImgClick:true,
 			});
 		});
-
-
-
-
-
     </script>
+
+    <script type="text/javascript" src="{{url_for('static', filename='js/intence.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/html5shiv-printshiv.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/html5shiv.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
