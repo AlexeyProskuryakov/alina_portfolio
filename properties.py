@@ -29,14 +29,24 @@ def module_path():
     return os.path.dirname(unicode(__file__, sys.getfilesystemencoding()))
 
 # настройки логирования
-log_file = os.path.join(module_path(), 'result.log')
+
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-fh = logging.FileHandler(log_file)
-ch = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s[%(levelname)s]%(name)s %(threadName)s : %(message)s')
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
-logger.addHandler(fh)
-logger.addHandler(ch)
-logging.getLogger('requests.packages.urllib3.connectionpool').propagate = False
+
+if os.environ.get('HEROKU') is None:
+    log_file = os.path.join(module_path(), 'result.log')
+    logger.setLevel(logging.INFO)
+    fh = logging.FileHandler(log_file)
+    ch = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s[%(levelname)s]%(name)s %(threadName)s : %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+    logging.getLogger('requests.packages.urllib3.connectionpool').propagate = False
+else:
+    stream_handler = logging.StreamHandler()
+    logger.addHandler(stream_handler)
+    logger.setLevel(logging.INFO)
+    logger.info('alina portfolio startup')
+
+

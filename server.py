@@ -30,10 +30,10 @@ def get_object_by_tag():
     return jsonify({})
 
 
-def _unload_photos():
+def refresh_cache():
     for id in dh._get_photos_ids(True):
         dh._get_or_load_photo_data(force=True, **id)
 
 if __name__ == '__main__':
-    _unload_photos()
+    refresh_cache()
     app.run()
